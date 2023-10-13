@@ -1,0 +1,53 @@
+concept to get :
+- command tables ?
+- 
+
+
+what is a lexer or lexical analyzer :
+- it takes the input of the user in the shell and splits in sequences of characters.(they are called tokens)
+what is a parser :
+- a parser interprets the output of the lexer and classifies it in a command table
+
+
+questions :
+
+- Will i have to create a Shell.l and Shell.y file ?
+- can we use lex and yacc ?
+
+to do for parser :
+
+- data structure for the command :
+
+// Command Data Structure 
+// Describes a simple command and arguments 
+typedef struct s_simplecommand 
+{ 
+        // Available space for arguments currently preallocated 
+        int _numberOfAvailableArguments; 
+        // Number of arguments 
+        int _numberOfArguments; 
+        // Array of arguments 
+        char ** _arguments; 
+        SimpleCommand(); 
+        void insertArgument( char * argument ); 
+} t_simplecommand; 
+
+// Describes a complete command with the multiple pipes if any 
+// and input/output redirection if any. 
+typedef struct s_command { 
+        int _numberOfAvailableSimpleCommands; 
+        int _numberOfSimpleCommands; 
+        SimpleCommand ** _simpleCommands; 
+        char * _outFile; //are NULL if no redirection
+        char * _inputFile; //are NULL if no redirection
+        char * _errFile; //are NULL if no redirection
+        int _background; 
+        void prompt(); 
+        void print(); 
+        void execute(); 
+        void clear(); 
+        Command(); 
+        void insertSimpleCommand( SimpleCommand * simpleCommand ); 
+        static Command _currentCommand; 
+        static SimpleCommand *_currentSimpleCommand; 
+} t_command; 
