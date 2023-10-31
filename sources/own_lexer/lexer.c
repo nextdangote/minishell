@@ -71,36 +71,91 @@ typedef struct Token {
     struct Token* next;
 } Token;
 
-// Function to tokenize the input and store tokens in the linked list
+// Custom function to tokenize the input and store tokens in the linked list
 Token* tokenizeInput(const char* input) {
     Token* head = NULL;
     Token* current = NULL;
+    char buffer[MAX_TOKEN_LENGTH];
+    int bufferIndex = 0;
+    int inQuote = 0;
 
-    const char delimiters[] = " \t\n";
-    char* token = strtok((char*)input, delimiters);
+    for (int i = 0; input[i] != '\0'; i++) {
+        char c = input[i];
 
-    while (token != NULL) {
+        // Handle double quotes
+        if (c == '"') {
+            inQuote = !inQuote;
+            buffer[bufferIndex++] = c;
+        } else if (!inQuote && (c == ' ' || c == '\t' || c == '\n')) {
+            // Handle whitespace outside quotes as token separator
+            if (bufferIndex > 0) {
+                buffer[bufferIndex] = '\0';
+                Token* newToken = (Token*)malloc(sizeof(Token));
+                newToken->next = NULL;
+                strcpy(newToken->value, buffer);
+
+                // Categorize the token based on content
+                if (strcmp(buffer, "|") == 0) {
+                    newToken->type = TOKEN_PIPE;
+                } else if (strcmp(buffer, "<") == 0) {
+                    newToken->type = TOKEN_INPUT_REDIRECTION;
+                } else if (strcmp(buffer, ">") == 0) {
+                    newToken->type = TOKEN_OUTPUT_REDIRECTION;
+                } else if (strcmp(buffer, ">>") == 0) {
+                    newToken->type = TOKEN_APPEND_OUTPUT_REDIRECTION;
+                } else if (strcmp(buffer, "<<") == 0) {
+                    // Handle double redirection
+                    newToken->type = TOKEN_INPUT_REDIRECTION;
+                } else if (buffer[0] == '"') {
+                    newToken->type = TOKEN_DOUBLE_QUOTE;
+                } else if (buffer[0] == '\'') {
+                    newToken->type = TOKEN_SINGLE_QUOTE;
+                } else if (buffer[0] == '-' && isalpha(buffer[1])) {
+                    newToken->type = TOKEN_FLAG;
+                } else {
+                    newToken->type = TOKEN_WORD;
+                }
+
+                // Append the new token to the linked list
+                if (head == NULL) {
+                    head = newToken;
+                    current = newToken;
+                } else {
+                    current->next = newToken;
+                    current = newToken;
+                }
+
+                bufferIndex = 0; // Reset the buffer
+            }
+        } else {
+            // Add characters to the buffer
+            buffer[bufferIndex++] = c;
+        }
+    }
+
+    if (bufferIndex > 0) {
+        buffer[bufferIndex] = '\0';
         Token* newToken = (Token*)malloc(sizeof(Token));
         newToken->next = NULL;
-        strcpy(newToken->value, token);
+        strcpy(newToken->value, buffer);
 
         // Categorize the token based on content
-        if (strcmp(token, "|") == 0) {
+        if (strcmp(buffer, "|") == 0) {
             newToken->type = TOKEN_PIPE;
-        } else if (strcmp(token, "<") == 0) {
+        } else if (strcmp(buffer, "<") == 0) {
             newToken->type = TOKEN_INPUT_REDIRECTION;
-        } else if (strcmp(token, ">") == 0) {
+        } else if (strcmp(buffer, ">") == 0) {
             newToken->type = TOKEN_OUTPUT_REDIRECTION;
-        } else if (strcmp(token, ">>") == 0) {
+        } else if (strcmp(buffer, ">>") == 0) {
             newToken->type = TOKEN_APPEND_OUTPUT_REDIRECTION;
-        } else if (strcmp(token, "<<") == 0) {
+        } else if (strcmp(buffer, "<<") == 0) {
             // Handle double redirection
             newToken->type = TOKEN_INPUT_REDIRECTION;
-        } else if (token[0] == '"' && token[strlen(token) - 1] == '"') {
+        } else if (buffer[0] == '"') {
             newToken->type = TOKEN_DOUBLE_QUOTE;
-        } else if (token[0] == '\'' && token[strlen(token) - 1] == '\'') {
+        } else if (buffer[0] == '\'') {
             newToken->type = TOKEN_SINGLE_QUOTE;
-        } else if (token[0] == '-' && isalpha(token[1])) {
+        } else if (buffer[0] == '-' && isalpha(buffer[1])) {
             newToken->type = TOKEN_FLAG;
         } else {
             newToken->type = TOKEN_WORD;
@@ -114,8 +169,6 @@ Token* tokenizeInput(const char* input) {
             current->next = newToken;
             current = newToken;
         }
-
-        token = strtok(NULL, delimiters);
     }
 
     return head; // Return the head of the linked list
@@ -154,19 +207,10 @@ int main(int argc, char **argv, char **env)
             printf("Token type: %d, Value: %s\n", current->type, current->value);
             current = current->next;
         }
-
+        //ft_parser(tokenList); // 🇨🇲🇨🇲🇨🇲🇨🇲 If you have a small draft of parser you can try to work with it
         free(input); // Free the input buffer returned by readline
         freeTokenList(tokenList); // Free the linked list of tokens
     }
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
