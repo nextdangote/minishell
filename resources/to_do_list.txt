@@ -1,7 +1,5 @@
 concept to get :
 - command tables ?
-- 
-
 
 what is a lexer or lexical analyzer :
 - it takes the input of the user in the shell and splits in sequences of characters.(they are called tokens)
@@ -13,6 +11,7 @@ questions :
 
 - Will i have to create a Shell.l and Shell.y file ?
 - can we use lex and yacc ?
+- I have seen that the buffer for the command input are fixed size like buf[100], is that correct ?
 
 to do for parser :
 
@@ -51,3 +50,23 @@ typedef struct s_command {
         static Command _currentCommand; 
         static SimpleCommand *_currentSimpleCommand; 
 } t_command; 
+
+comment on classifie les nombres :
+
+- si il y a une int erreur
+- on expand jamais sauf quand il y a le $ avec double quotes
+- si single quotes ou double quotes non fermées on envoie une erreur
+- comment on divise les tokens ?
+- "hello world" is one token including the quotes
+- no character allowed just before the first quote or just after the last quote
+- comment savoir que c'est la fin de l'input
+
+
+
+
+//get rid of spaces and double spaces
+//put everything in a linked list
+//check command access 
+// all the follow of words are a double d array which are nodes from the linked list
+// command , following things are arguments
+// pipes redirections are separators
