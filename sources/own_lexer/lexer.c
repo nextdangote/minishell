@@ -72,7 +72,8 @@ typedef struct Token {
 } Token;
 
 // Custom function to tokenize the input and store tokens in the linked list
-Token* tokenizeInput(const char* input) {
+Token* tokenizeInput(const char* input) 
+{
     Token* head = NULL;
     Token* current = NULL;
     char buffer[MAX_TOKEN_LENGTH];
@@ -198,6 +199,8 @@ int main(int argc, char **argv, char **env)
         if (input == NULL)
             break;
 
+        add_history(input);
+
         // Tokenize the input and store tokens in the linked list
         tokenList = tokenizeInput(input);
 
@@ -207,10 +210,12 @@ int main(int argc, char **argv, char **env)
             printf("Token type: %d, Value: %s\n", current->type, current->value);
             current = current->next;
         }
-        //ft_parser(tokenList); // 🇨🇲🇨🇲🇨🇲🇨🇲 If you have a small draft of parser you can try to work with it
+        // ft_parser(tokenList); // 🇨🇲🇨🇲🇨🇲🇨🇲 If you have a small draft of parser you can try to work with it
         free(input); // Free the input buffer returned by readline
         freeTokenList(tokenList); // Free the linked list of tokens
     }
+
+    clear_history();
 
     return 0;
 }
