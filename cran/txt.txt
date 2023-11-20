@@ -1,0 +1,30 @@
+/usr/bin/clang -fcolor-diagnostics -fansi-escape-codes -g /Users/tasha/Dev/42projects/Lumumbash/cran/exec.c -o /Users/tasha/Dev/42projects/Lumumbash/cran/exec 
+Undefined symbols for architecture arm64:
+  "_clear_ast", referenced from:
+      _clean_shell in exec-1fafed.o
+  "_clear_history", referenced from:
+      _clean_shell in exec-1fafed.o
+  "_ft_echo", referenced from:
+      _exec_builtin in exec-1fafed.o
+  "_ft_putchar_fd", referenced from:
+      _ft_putnbr_fd in exec-1fafed.o
+      _heredoc_expander in exec-1fafed.o
+  "_ft_putstr_fd", referenced from:
+      _error_msg in exec-1fafed.o
+      _heredoc_expand_writer in exec-1fafed.o
+      _ft_heredoc in exec-1fafed.o
+  "_ft_pwd", referenced from:
+      _exec_builtin in exec-1fafed.o
+  "_ft_substr", referenced from:
+      _heredoc_expand_writer in exec-1fafed.o
+  "_main", referenced from:
+     implicit entry/start for main executable
+  "_readline", referenced from:
+      _ft_heredoc in exec-1fafed.o
+ld: symbol(s) not found for architecture arm64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+Build finished with error(s).
+
+ *  The terminal process terminated with exit code: -1. 
+ *  Terminal will be reused by tasks, press any key to close it. 
