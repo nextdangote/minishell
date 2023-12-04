@@ -1,7 +1,6 @@
 #include "lumumbash.h"
 
 
-
 t_token *new_token(char *value, t_token_type type) 
 {
     t_token *new_token = (t_token *)malloc(sizeof(t_token));

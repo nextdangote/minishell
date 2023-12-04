@@ -41,7 +41,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 }
 
 
-// bool current_token_is_op(t_token *current_token) {
 bool current_token_is_op(t_minishell *minishell) 
 {
     t_token *current_token;
@@ -121,47 +120,6 @@ bool	is_redir(t_token_type type)
 	return (false);
 }
 
-
-// char	*ft_strjoin_with(char const *s1, char const *s2, char c)
-// {
-// 	char	*joined;
-// 	size_t	total_length;
-// 	size_t	i;
-// 	size_t	j;
-
-// 	if (!s1 || !s2)
-// 		return NULL;
-// 	if (!c || !strlen(s1) || !strlen(s2))
-// 		return (ft_strjoin(s1, s2));
-// 	total_length = strlen(s1) + strlen(s2) + 1 + 1;
-// 	joined = calloc(total_length, sizeof(char));
-// 	if (!joined)
-// 		return NULL;
-// 	i = 0;
-// 	while (s1[i])
-// 	{
-// 		joined[i] = s1[i];
-// 		i++;
-// 	}
-
-// 	if (s1[0] != '\0' && s2[0] != '\0')
-//     {
-//         joined[i++] = c;
-//     }
-
-
-
-// 	// joined[i++] = c; go back to this?
-
-
-// 	j = 0;
-// 	while (s2[j])
-// 		joined[i++] = s2[j++];
-// 	joined[i] = 0;
-// 	return (joined);
-// }
-
-
 char *ft_strjoin_with(char const *s1, char const *s2, char const *separator)
 {
     char *joined;
@@ -203,84 +161,6 @@ char *ft_strjoin_with(char const *s1, char const *s2, char const *separator)
 }
 
 
-// bool ft_join_args(char ***args, t_minishell *minishell) 
-// {
-//     if (minishell->parse_error.type) {
-//         return false;
-//     }
-
-//     char *to_free;
-
-//     // if (!*args) {
-//     //     *args = strdup("");
-//     // }
-
-//     // if (!*args) {
-//     //     return false;
-//     // }
-
-// 	if (!*args) {
-//         *args = (char **)malloc(sizeof(char *));
-//         if (!*args) {
-//             return false;
-//         }
-//         **args = NULL;
-//     }
-
-//     while (minishell->current_token && minishell->current_token->type == TOKEN_WORD) 
-//     {
-//         to_free = **args;
-//         **args = ft_strjoin_with(**args, minishell->current_token->value, ' ');
-
-//         if (!**args) {
-//             free(to_free);
-//             return false;
-//         }
-
-//         free(to_free);
-//         get_next_token(minishell);
-//     }
-
-//     return true;
-// }
-
-// bool ft_join_args(char ***args, t_minishell *minishell) 
-// {
-//     if (minishell->parse_error.type) {
-//         return false;
-//     }
-
-//     char *to_free;
-
-//     if (!*args) {
-//         *args = (char **)malloc(sizeof(char *));
-//         if (!*args) {
-//             return false;
-//         }
-//         **args = NULL;
-//     }
-
-//     while (minishell->current_token && minishell->current_token->type == TOKEN_WORD) 
-//     {
-//         if (minishell->current_token->value != NULL) {
-//             char *temp = ft_strjoin_with(**args, minishell->current_token->value, ' ');
-//             if (!temp) {
-//                 return false;
-//             }
-
-//             free(**args);
-//             **args = temp;
-//         }
-
-//         get_next_token(minishell);
-
-//         if (!minishell->current_token) {
-//             break;
-//         }
-//     }
-
-//     return true;
-// }
 bool ft_join_args(char ***args, t_minishell *minishell) 
 {
     if (minishell->parse_error.type) {
@@ -299,24 +179,19 @@ bool ft_join_args(char ***args, t_minishell *minishell)
 
     while (minishell->current_token && minishell->current_token->type == TOKEN_WORD) 
     {
-        // Ensure the value is not NULL before attempting to concatenate
         if (minishell->current_token->value != NULL) {
-            // Use a temporary variable for concatenation
-            char *separator = (**args && **args[0] != '\0') ? " " : "";  // Only add separator if not at the beginning
+            char *separator = (**args && **args[0] != '\0') ? " " : ""; 
             char *temp = ft_strjoin_with(**args, minishell->current_token->value ,separator);
             if (!temp) {
-                // Handle memory allocation error
                 return false;
             }
 
-            // Free the previous value and update to the new concatenated value
             free(**args);
             **args = temp;
         }
 
         get_next_token(minishell);
 
-        // Check if the next token is NULL and break out of the loop
         if (!minishell->current_token) {
             break;
         }

@@ -87,7 +87,6 @@ t_node	*ft_combine(t_token_type op, t_node *left, t_node *right, t_minishell *mi
 t_node	*ft_expression(t_minishell *minishell);
 
 // parser_utils.c
-// bool current_token_is_op(t_token *current_token);
 bool current_token_is_op(t_minishell *minishell);
 void get_next_token(t_minishell *minishell);
 void	ft_clear_redir_list(t_redir_node **list);
@@ -95,9 +94,7 @@ void	ft_clear_cmd_node(t_node *node);
 void	ft_recursive_clear_ast(t_node *node);
 void	ft_clear_ast(t_node **ast, t_minishell *minishell);
 bool	is_redir(t_token_type type);
-// char	*ft_strjoin_with(char const *s1, char const *s2, char c);
 char *ft_strjoin_with(char const *s1, char const *s2, char const *separator);
-// bool ft_join_args(char **args, t_minishell *minishell);
 bool ft_join_args(char ***args, t_minishell *minishell);
 bool get_redir_list(t_redir_node **redir_list, t_minishell *minishell);
 

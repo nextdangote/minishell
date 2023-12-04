@@ -24,22 +24,17 @@ static t_node *get_simple_cmd(t_minishell *minishell)
 			if (!node || !node->args) {
 				printf("Malloc error condition triggered\n");
                 set_parse_error(MALLOC_ERROR, minishell);
-                // ft_clear_ast(&(node->redir_list), minishell);
                 free(node);
                 return NULL;
             }
             if (!ft_join_args(&(node->args), minishell)) {
                 ft_clear_cmd_node(node);
                 set_parse_error(MALLOC_ERROR, minishell);
-				//REMOVE 2 LINES BELOW?
-				// ft_clear_ast(&(node->redir_list), minishell);
-                // free(node);
 
                 return NULL;
             }
         } else if (is_redir(minishell->current_token->type)) {
             if (!get_redir_list(&(node->redir_list), minishell)) {
-				// ft_clear_ast(&(node->redir_list), minishell); // remove this?
                 free(node->args);
                 free(node);
                 return NULL;

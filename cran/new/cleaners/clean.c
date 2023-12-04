@@ -23,16 +23,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	*lst = NULL;
 }
 
-
-// void	clean_shell(t_minishell *minishell)
-// {
-// 	to_trash(NULL, true);
-// 	clear_ast(&(minishell->ast), &(minishell->tokens));
-// 	clear_history();
-// 	tcsetattr(STDIN_FILENO, TCSANOW, &(minishell->original_term));
-// }
-
-
 void	clean_shell(t_minishell *minishell)
 {
 	collector(NULL, true);
