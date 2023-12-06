@@ -43,20 +43,23 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 bool current_token_is_op(t_minishell *minishell) 
 {
-    t_token *current_token;
-	current_token = minishell->current_token; // added?
-	
-	if (!current_token) {
-        return false;
-    }
-    t_token_type type = current_token->type;
-    return (type == TOKEN_PIPE);
+    t_token_type	type;
+
+	if (!minishell->current_token)
+		return (false);
+	type = minishell->current_token->type;
+	if (type == TOKEN_PIPE)
+		return (true);
+	return (false);
 }
 
+
+
 void get_next_token(t_minishell *minishell) {
-    if (minishell && minishell->current_token) {
-        minishell->current_token = minishell->current_token->next;
-    }
+
+
+    minishell->current_token = minishell->current_token->next;
+
 }
 
 void	ft_clear_redir_list(t_redir_node **list)
@@ -120,84 +123,59 @@ bool	is_redir(t_token_type type)
 	return (false);
 }
 
-char *ft_strjoin_with(char const *s1, char const *s2, char const *separator)
+
+
+char	*ft_strjoin_with(char const *s1, char const *s2, char c)
 {
-    char *joined;
-    size_t total_length;
-    size_t i;
-    size_t j;
+	char	*joined;
+	size_t	total_length;
+	size_t	i;
+	size_t	j;
 
-    if (!s1 || !s2)
-        return NULL;
-
-    size_t separator_length = strlen(separator);
-    total_length = strlen(s1) + separator_length + strlen(s2) + 1;
-    joined = calloc(total_length, sizeof(char));
-
-    if (!joined)
-        return NULL;
-
-    i = 0;
-    while (s1[i])
-    {
-        joined[i] = s1[i];
-        i++;
-    }
-
-    if (s1[0] != '\0' && s2[0] != '\0')
-    {
-        for (size_t k = 0; k < separator_length; k++)
-        {
-            joined[i++] = separator[k];
-        }
-    }
-
-    j = 0;
-    while (s2[j])
-        joined[i++] = s2[j++];
-
-    joined[i] = 0;
-    return joined;
+	if (!s1 || !s2)
+		return (NULL);
+	if (!c || !strlen(s1) || !strlen(s2))
+		return (ft_strjoin(s1, s2));
+	total_length = strlen(s1) + strlen(s2) + 1 + 1;
+	joined = calloc(total_length, sizeof(char));
+	if (!joined)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		joined[i] = s1[i];
+		i++;
+	}
+	joined[i++] = c;
+	j = 0;
+	while (s2[j])
+		joined[i++] = s2[j++];
+	joined[i] = 0;
+	return (joined);
 }
 
 
-bool ft_join_args(char ***args, t_minishell *minishell) 
+bool ft_join_args(char **args, t_minishell *minishell) 
 {
-    if (minishell->parse_error.type) {
-        return false;
-    }
-
     char *to_free;
 
-    if (!*args) {
-        *args = (char **)malloc(sizeof(char *));
-        if (!*args) {
-            return false;
-        }
-        **args = NULL;
-    }
+    if (minishell->parse_error.type)
+        return false;
+    if (!*args)
+		*args = strdup("");
+	if (!*args)
+		return (false);
 
     while (minishell->current_token && minishell->current_token->type == TOKEN_WORD) 
     {
-        if (minishell->current_token->value != NULL) {
-            char *separator = (**args && **args[0] != '\0') ? " " : ""; 
-            char *temp = ft_strjoin_with(**args, minishell->current_token->value ,separator);
-            if (!temp) {
-                return false;
-            }
-
-            free(**args);
-            **args = temp;
-        }
-
-        get_next_token(minishell);
-
-        if (!minishell->current_token) {
-            break;
-        }
-    }
-
-    return true;
+        to_free = *args;
+		*args = ft_strjoin_with(*args, minishell->current_token-> value, ' ');
+		if (!*args)
+			return (free(to_free), false);
+		free(to_free);
+		get_next_token(minishell);
+	}
+	return (true);
 }
 
 
@@ -218,17 +196,17 @@ bool get_redir_list(t_redir_node **redir_list, t_minishell *minishell)
         get_next_token(minishell);
 
         if (!minishell->current_token) {
-            return set_parse_error(SYNTAX_ERROR, minishell), false;
+            return set_parse_error(SYNTAX_ERROR), false;
         }
 
         if (minishell->current_token->type != TOKEN_WORD) {
-            return set_parse_error(SYNTAX_ERROR, minishell), false;
+            return set_parse_error(SYNTAX_ERROR), false;
         }
 
         tmp_redir_node = new_redir_node(redir_type, minishell->current_token->value);
 
         if (!tmp_redir_node) {
-            return set_parse_error(MALLOC_ERROR, minishell), false;
+            return set_parse_error(MALLOC_ERROR), false;
         }
 
         append_redir_node(redir_list, tmp_redir_node);

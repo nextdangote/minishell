@@ -24,12 +24,9 @@ t_node	*new_node(t_node_type type)
 	t_node	*new_node;
 
 	new_node = (t_node *)calloc(1, sizeof(t_node));
-	if (!new_node) {
-		printf("Memory allocation error in new_node\n");
+	if (!new_node)
 		return (NULL);
-	}
 	new_node->type = type;
-	new_node->args = NULL; // added today?
 	return (new_node);
 }
 

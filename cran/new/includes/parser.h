@@ -40,7 +40,7 @@ typedef struct s_node
 {
 	t_node_type			type;
 	t_redir_node			*redir_list;
-	char				**args;
+	char				*args;
 	struct s_node		*left;
 	struct s_node		*right;
     char *value;  //added for main testing
@@ -77,7 +77,9 @@ void	append_redir_node(t_redir_node **list, t_redir_node *new);
 
 
 // parser_errors.c
-void set_parse_error(t_parse_error_type type, t_minishell *minishell);
+// void set_parse_error(t_parse_error_type type, t_minishell *minishell);
+
+void set_parse_error(t_parse_error_type type);
 void handle_parse_error(t_minishell *minishell);
 
 // parser_helpers.c
@@ -87,16 +89,16 @@ t_node	*ft_combine(t_token_type op, t_node *left, t_node *right, t_minishell *mi
 t_node	*ft_expression(t_minishell *minishell);
 
 // parser_utils.c
-bool current_token_is_op(t_minishell *minishell);
-void get_next_token(t_minishell *minishell);
+bool	current_token_is_op(t_minishell *minishell);
+void	get_next_token(t_minishell *minishell);
 void	ft_clear_redir_list(t_redir_node **list);
 void	ft_clear_cmd_node(t_node *node);
 void	ft_recursive_clear_ast(t_node *node);
 void	ft_clear_ast(t_node **ast, t_minishell *minishell);
 bool	is_redir(t_token_type type);
-char *ft_strjoin_with(char const *s1, char const *s2, char const *separator);
-bool ft_join_args(char ***args, t_minishell *minishell);
-bool get_redir_list(t_redir_node **redir_list, t_minishell *minishell);
+char	*ft_strjoin_with(char const *s1, char const *s2, char c);
+bool	ft_join_args(char **args, t_minishell *minishell); 
+bool	get_redir_list(t_redir_node **redir_list, t_minishell *minishell);
 
 // parser.c
 t_node	*ft_parse(t_minishell *minishell);
