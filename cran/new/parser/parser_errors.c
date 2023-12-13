@@ -1,11 +1,11 @@
 #include "lumumbash.h"
 
 
-void set_parse_error(t_parse_error_type type, t_minishell *minishell) 
+void set_parse_error(t_parse_error_type type) 
 {
-    if (minishell != NULL) {
-        minishell->parse_error.type = type;
-    }
+    t_minishell *minishell;
+    
+    minishell->parse_error.type = type;
 }
 
 

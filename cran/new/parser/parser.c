@@ -9,7 +9,7 @@ t_node	*ft_parse(t_minishell *minishell)
 	ast = ft_expression(minishell);
 	if (minishell->current_token)
     {
-		set_parse_error(SYNTAX_ERROR, minishell); 
+		set_parse_error(SYNTAX_ERROR); 
         return ast;
     }
 	return (ast);
