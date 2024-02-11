@@ -43,7 +43,10 @@ typedef struct s_node
 	char				*args;
 	struct s_node		*left;
 	struct s_node		*right;
+	char				**split_args;
+	char				**expanded_args;
     char *value;  //added for main testing
+
 }	t_node;
 
 typedef struct s_parse_error
@@ -64,6 +67,7 @@ typedef struct s_minishell
 	int				stdout;
 	struct termios	original_term;
 	char			**environ;
+	bool			heredoc_sigint;
 }					t_minishell;
 
 // nodes.c

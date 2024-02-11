@@ -31,28 +31,63 @@ t_list	*ft_lstnew(void *content)
 }
 
 
+// int	check_redir(t_node *node)
+// {
+// 	printf("check_redir: Checking redirections\n");
+// 	t_redir_node	*tmp_redir;
+// 	int			tmp_status;
+
+// 	tmp_redir = node->redir_list;
+// 	while (tmp_redir)
+// 	{
+// 		if (tmp_redir->type == REDIR_OUT
+// 			&& ft_out(tmp_redir, &tmp_status) != SUCCESS)
+// 			return (tmp_status);
+// 		else if (tmp_redir->type == REDIR_IN
+// 			&& ft_in(tmp_redir, &tmp_status) != SUCCESS)
+// 			return (tmp_status);
+// 		else if (tmp_redir->type == REDIR_APPEND
+// 			&& ft_append(tmp_redir, &tmp_status) != SUCCESS)
+// 			return (tmp_status);
+// 		else if (tmp_redir->type == REDIR_HEREDOC)
+// 			(dup2(tmp_redir->here_doc, 0), close(tmp_redir->here_doc));
+// 		tmp_redir = tmp_redir->next;
+// 	}
+// 	if (tmp_status != SUCCESS) {
+//         printf("check_redir: Redirection check failed\n");
+//         return tmp_status;
+//     }
+//     printf("check_redir: Redirection check succeeded\n");
+// 	return (SUCCESS);
+// }
+
+
 int	check_redir(t_node *node)
 {
-	t_redir_node	*tmp_redir;
-	int			tmp_status;
+    printf("check_redir: Checking redirections\n");
+    t_redir_node	*tmp_redir;
+    int			tmp_status = SUCCESS;  // Initialize tmp_status to SUCCESS
 
-	tmp_redir = node->redir_list;
-	while (tmp_redir)
-	{
-		if (tmp_redir->type == REDIR_OUT
-			&& ft_out(tmp_redir, &tmp_status) != SUCCESS)
-			return (tmp_status);
-		else if (tmp_redir->type == REDIR_IN
-			&& ft_in(tmp_redir, &tmp_status) != SUCCESS)
-			return (tmp_status);
-		else if (tmp_redir->type == REDIR_APPEND
-			&& ft_append(tmp_redir, &tmp_status) != SUCCESS)
-			return (tmp_status);
-		else if (tmp_redir->type == REDIR_HEREDOC)
-			(dup2(tmp_redir->here_doc, 0), close(tmp_redir->here_doc));
-		tmp_redir = tmp_redir->next;
-	}
-	return (SUCCESS);
+    tmp_redir = node->redir_list;
+    while (tmp_redir)
+    {
+        if (tmp_redir->type == REDIR_OUT
+            && ft_out(tmp_redir, &tmp_status) != SUCCESS)
+            return (tmp_status);
+        else if (tmp_redir->type == REDIR_IN
+            && ft_in(tmp_redir, &tmp_status) != SUCCESS)
+            return (tmp_status);
+        else if (tmp_redir->type == REDIR_APPEND
+            && ft_append(tmp_redir, &tmp_status) != SUCCESS)
+            return (tmp_status);
+        else if (tmp_redir->type == REDIR_HEREDOC)
+            (dup2(tmp_redir->here_doc, 0), close(tmp_redir->here_doc));
+        tmp_redir = tmp_redir->next;
+    }
+    if (tmp_status != SUCCESS) {
+        printf("check_redir: Redirection check failed\n");
+        return tmp_status;
+    }
+    printf("check_redir: Redirection check succeeded\n");
+    return (SUCCESS);
 }
-
-
