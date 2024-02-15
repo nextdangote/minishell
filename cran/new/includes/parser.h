@@ -87,7 +87,7 @@ void set_parse_error(t_parse_error_type type);
 void handle_parse_error(t_minishell *minishell);
 
 // parser_helpers.c
-static t_node *get_simple_cmd(t_minishell *minishell);
+// static t_node *get_simple_cmd(t_minishell *minishell);
 t_node	*ft_term(t_minishell *minishell);
 t_node	*ft_combine(t_token_type op, t_node *left, t_node *right, t_minishell *minishell);
 t_node	*ft_expression(t_minishell *minishell);

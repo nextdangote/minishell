@@ -3,7 +3,7 @@
 
 void set_parse_error(t_parse_error_type type) 
 {
-    t_minishell *minishell;
+    t_minishell *minishell = NULL;
     
     minishell->parse_error.type = type;
 }

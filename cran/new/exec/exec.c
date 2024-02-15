@@ -159,7 +159,7 @@ static int exec_pipeline(t_node *tree)
 
 int	exec_node(t_node *tree, bool piped)
 {
-	int	status;
+	// int	status;
 
 	if (!tree)
 		return (1);

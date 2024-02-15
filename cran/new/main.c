@@ -1,20 +1,11 @@
 #include "lumumbash.h"
 
 
-// static void	ft_init_minishell(t_minishell *minishell, char **env)
-// {    
-//     memset(minishell, 0, sizeof(t_minishell));
-// 	minishell->environ = env;
-// 	tcgetattr(STDIN_FILENO, &(minishell->original_term));
-
-// }
-
-
 static void	ft_init_minishell(t_minishell *minishell, char **env)
 {    
     memset(minishell, 0, sizeof(t_minishell));
     minishell->environ = env;
-    minishell->line = NULL;  // Initialize the string field 'line'
+    minishell->line = NULL;  
     tcgetattr(STDIN_FILENO, &(minishell->original_term));
 }
 

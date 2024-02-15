@@ -26,7 +26,7 @@ void	ft_heredoc(t_redir_node *redir, int p[2])
 {
 	char	*line;
 	char	*quotes;
-    t_minishell *minishell;
+    t_minishell *minishell = NULL;
 
 	quotes = redir->value;
 	while (*quotes && *quotes != '"' && *quotes != '\'')

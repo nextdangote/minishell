@@ -37,51 +37,10 @@ static t_node *get_simple_cmd(t_minishell *minishell)
 }
 
 
-// static t_node *get_simple_cmd(t_minishell *minishell) 
-// {
-//     t_node *node;
-    
-//     if (minishell->parse_error.type)
-//         return NULL;
-//     node = new_node(NODE_CMD);
-//     if (!node) {
-//         set_parse_error(MALLOC_ERROR);
-//         return NULL;
-//     }
-    
-//     // If the first token is a redirection operator, create an empty command
-//     if (minishell->current_token && is_redir(minishell->current_token->type)) {
-//         node->args = NULL;
-//     }
-
-//     while (minishell->current_token && (minishell->current_token->type == TOKEN_WORD || is_redir(minishell->current_token->type))) {
-    
-//         if (minishell->current_token->type == TOKEN_WORD)
-//         {
-//             if (!ft_join_args(&(node->args), minishell))
-//             {
-//                 ft_clear_cmd_node(node);
-//                 set_parse_error(MALLOC_ERROR);
-//                 return NULL;
-//             }
-          
-//         } else if (is_redir(minishell->current_token->type)) {
-//             if (!get_redir_list(&(node->redir_list), minishell)) {
-//                 free(node->args);
-//                 free(node);
-//                 return NULL;
-//             }
-//         }
-//     }
-//     return node;
-// }
-
-
-
 
 t_node	*ft_term(t_minishell *minishell)
 {
-	t_node	*node;
+	// t_node	*node;
 
 	if (minishell->parse_error.type)
 		return NULL;

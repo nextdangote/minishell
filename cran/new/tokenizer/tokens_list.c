@@ -25,24 +25,6 @@ void	clear_token_list(t_token **list)
 }
 
 
-
-// void	token_list_add_back(t_token **lst, t_token *new_token)
-// {
-// 	t_token	*curr_node;
-
-// 	if (!*lst)
-// 	{
-// 		*lst = new_token;
-// 		return ;
-// 	}
-// 	curr_node = *lst;
-// 	while (curr_node && curr_node -> next)
-// 		curr_node = curr_node -> next;
-// 	curr_node -> next = new_token;
-// 	new_token -> prev = curr_node;
-// }
-
-
 int token_list_add_back(t_token **lst, t_token *new_token)
 {
     t_token *curr_node;
