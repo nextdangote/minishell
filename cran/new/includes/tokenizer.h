@@ -65,21 +65,24 @@ void	skip_spaces(char **line);
 int	is_quote(char c);
 int	is_separator(char *s);
 void	skip_spaces(char **line);
-bool	skip_quotes(char *line, size_t *i);
-void	ft_putchar_fd(char c, int fd);
+// bool	skip_quotes(char *line, size_t *i);
+int skip_quotes(char *str, size_t *i);
+void ft_putchar_fd(char c, int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	ft_putstr_fd(char *s, int fd);
 void	quote_error(char c);
 
 // tokensn_list.c
 void	clear_token_list(t_token **lst);
-void	token_list_add_back(t_token **lst, t_token *new_token);
+// void	token_list_add_back(t_token **lst, t_token *new_token);
+int token_list_add_back(t_token **lst, t_token *new_token);
 
 // handlers.c
 t_token *new_token(char *value, t_token_type type);
 int append_separator(t_token_type type, char **line_ptr, t_token **token_list);
 int handle_separator(char **line_ptr, t_token **token_list);
 int	append_word(char **line_ptr, t_token **token_list);
+
 t_token *tokenization_handler(char *line);
 
 // tokenizer.c

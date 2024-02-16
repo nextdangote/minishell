@@ -29,21 +29,31 @@ int	is_separator(char *s)
 	return (0);
 }
 
-bool	skip_quotes(char *line, size_t *i)
-{
-	char	quote;
 
-	quote = line[*i];
-	if (strchr(line + *i + 1, quote))
-	{
-		(*i)++;
-		while (line[*i] != quote)
-			(*i)++;
-		(*i)++;
-		return (true);
-	}
-	return (false);
+int	skip_quotes(char *str, size_t *i)
+{
+    char	quote_type;
+
+    quote_type = str[*i];
+    (*i)++;
+    while (str[*i] && str[*i] != quote_type)
+    {
+        if (str[*i] == '\\' && str[*i + 1] == quote_type)
+            (*i)++;
+        (*i)++;
+    }
+    if (str[*i] == quote_type)
+    {
+        (*i)++;
+        return (1);
+    }
+    else
+    {
+        quote_error(quote_type);
+        return (0);
+    }
 }
+
 
 void	ft_putchar_fd(char c, int fd)
 {
@@ -88,7 +98,7 @@ void	ft_putstr_fd(char *s, int fd)
 
 void	quote_error(char c)
 {
-	t_minishell *minishell;
+	t_minishell *minishell = NULL;
 
 	ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
 	ft_putchar_fd(c, 2);

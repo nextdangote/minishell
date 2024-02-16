@@ -37,9 +37,10 @@ static t_node *get_simple_cmd(t_minishell *minishell)
 }
 
 
+
 t_node	*ft_term(t_minishell *minishell)
 {
-	t_node	*node;
+	// t_node	*node;
 
 	if (minishell->parse_error.type)
 		return NULL;

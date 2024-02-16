@@ -15,8 +15,12 @@
 # include <unistd.h>
 # include <stdint.h>
 # include <string.h>
+#include <ctype.h>
 # include "tokenizer.h"
 # include "parser.h"
+
+#define MAX_NUM_ARGS 100
+
 
 
 
@@ -41,14 +45,16 @@ int	ft_pwd(void);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	clean_shell(t_minishell *minishell);
 void	clean_shell(t_minishell *minishell);
-static void	ft_del(void *ptr);
+// static void	ft_del(void *ptr);
 void	*collector(void *ptr, bool clean);
-
+void ft_free_char2(char **tofree); // added after expander
 
 // tree.c
-static bool ft_leave_leaf(int p[2], int *pid);
-static void	ft_init_leaf(t_node *node);
+// static bool ft_leave_leaf(int p[2], int *pid);
+// static void	ft_init_leaf(t_node *node);
 void ft_init_tree(t_node *node);
+// static void ft_init_leaf(t_minishell *minishell, t_node *node);
+// void ft_init_tree(t_minishell *minishell, t_node *node);
 bool	ft_is_delimiter(char *delimiter, char *str);
 void	ft_heredoc(t_redir_node *redir, int p[2]);
 
@@ -59,8 +65,8 @@ int exec_child(t_node *node);
 
 //exec.c
 int	get_exit_status(int status);
-static void exec_pipe_child(t_node *node, int pfds[2], t_ast_direction direction);
-static	int	exec_pipeline(t_node *tree);
+// static void exec_pipe_child(t_node *node, int pfds[2], t_ast_direction direction);
+// static	int	exec_pipeline(t_node *tree);
 int	exec_node(t_node *tree, bool piped);
 
 

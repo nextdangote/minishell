@@ -47,6 +47,7 @@ int ft_in(t_redir_node *redir_list, int *status)
 
 int ft_append(t_redir_node *redir_list, int *status)
 {
+    printf("ft_append: Appending output to file\n");
     int fd;
 
     if (!redir_list->value || redir_list->value[1])
