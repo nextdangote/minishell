@@ -3,12 +3,15 @@
 
 t_token *new_token(char *value, t_token_type type) 
 {
-    t_token *new_token = (t_token *)malloc(sizeof(t_token));
+    t_token *new_token = (t_token *)malloc(sizeof(t_token) + 1);
     if (!new_token) {
         return NULL;
     }
     new_token->value = value;
     new_token->type = type;
+    // added this init march 20
+    new_token->next = NULL;
+    new_token->prev = NULL;
     return new_token;
 }
 

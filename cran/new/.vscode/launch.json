@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "C/C++ Runner: Debug Session",
-      "type": "lldb",
+      "type node": "lldb",
       "request": "launch",
       "args": [],
       "cwd": "/Users/tasha/Dev/42projects/Lumumbash/cran/new",
