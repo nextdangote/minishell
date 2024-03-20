@@ -46,17 +46,19 @@ void	reset_stds(bool piped)
 // }
 
 
-int exec_builtin(char **args)
+
+// added minishell as argument on march 22, to fit the new ft_exit
+int exec_builtin(char **args, t_minishell *minishell)
 {
     printf("exec_builtin: Executing command - %s\n", args[0]);
     if (!strcmp(args[0], "echo"))
     {
         printf("exec_builtin: Echo logic\n");
-        return ft_echo(args + 1);  // Pass the arguments to echo, not including the command name
+        return ft_echo(args + 1);
     }
     else if (!strcmp(args[0], "exit"))
     {
-        ft_exit(args);
+        ft_exit(args, minishell);
          return (GENERAL);
         // printf("exec_builtin: Exit logic\n");
         // return ft_exit(args + 1);  
@@ -188,7 +190,7 @@ bool is_builtin(char *arg)
 
 
 
-int exec_simple_cmd(t_node *node, bool piped)
+int exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell)
 {
     int tmp_status;
     if (node->args == NULL) {
@@ -196,7 +198,7 @@ int exec_simple_cmd(t_node *node, bool piped)
     }
 
     // Split the command into separate words
-    char **split_args = malloc(MAX_NUM_ARGS * sizeof(char *));
+    char **split_args = malloc(MAX_NUM_ARGS * sizeof(char *) + 1);
     char *arg = strtok(node->args, " ");
     int i = 0;
     while (arg != NULL) {
@@ -204,7 +206,7 @@ int exec_simple_cmd(t_node *node, bool piped)
         i++;
         arg = strtok(NULL, " ");
     }
-    split_args[i] = NULL;  // Null-terminate the array of arguments
+    split_args[i] = NULL;  
 
     if (is_builtin(split_args[0]))
     {
@@ -216,14 +218,14 @@ int exec_simple_cmd(t_node *node, bool piped)
             printf("exec_simple_cmd: Redirection check failed\n");
             return GENERAL;
         }
-        tmp_status = exec_builtin(split_args);
-        free(split_args);  // Free the array of arguments
+        tmp_status = exec_builtin(split_args, minishell);
+        free(split_args);  
         return (reset_stds(piped), tmp_status);
     }
     else
     {
         printf("exec_simple_cmd: Not a builtin command\n");
-        free(split_args);  // Free the array of arguments
+        free(split_args);  
         return exec_child(node);
     }
 }

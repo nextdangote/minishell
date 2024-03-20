@@ -14,7 +14,7 @@ static void	start_execution(t_minishell *minishell)
 {
 	ft_init_tree(minishell->ast);
 
-	minishell->exit_s = exec_node(minishell->ast, false);
+	minishell->exit_s = exec_node(minishell->ast, false, minishell); // minishell added today march 20
 	ft_clear_ast((&minishell->ast), minishell); // minishell or NULL?
 }
 

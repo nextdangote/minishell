@@ -1,13 +1,11 @@
 #include "lumumbash.h"
 
-
 int	ft_isdigit(int c)
 {
 	if ((c >= '0' && c <= '9'))
 		return (1);
 	return (0);
 }
-
 
 static bool	ft_isnumber(char *s)
 {
@@ -23,7 +21,6 @@ static bool	ft_isnumber(char *s)
 	return (true);
 }
 
-
 static void	ft_skip_spaces_and_get_sign(char *s, int *i, int *sign)
 {
 	while (s[*i] && s[*i] == ' ')
@@ -37,16 +34,13 @@ static void	ft_skip_spaces_and_get_sign(char *s, int *i, int *sign)
 }
 
 
-static int	ft_exittoi(char *s)
+static int	ft_exittoi(char *s, t_minishell *minishell)
 {
 	int					i;
 	int					sign;
 	int					exit_s;
 	unsigned long long	result;
-	t_minishell *minishell = NULL;
-
-
-
+	// t_minishell *minishell = NULL;
 	i = 0;
 	sign = 1;
 	ft_skip_spaces_and_get_sign(s, &i, &sign);
@@ -69,10 +63,10 @@ static int	ft_exittoi(char *s)
 	return ((result * sign) % 256);
 }
 
-void	ft_exit(char **args)
+// modified march 20
+void	ft_exit(char **args, t_minishell *minishell)
 {
 	int	exit_s;
-	t_minishell *minishell = NULL;
 
 	exit_s = minishell->exit_s;
 	if (args[1])
@@ -84,7 +78,7 @@ void	ft_exit(char **args)
 			(clean_shell(minishell), exit(exit_s));
 		}
 		else
-			exit_s = ft_exittoi(args[1]);
+			exit_s = ft_exittoi(args[1], minishell);
 	}
 	(clean_shell(minishell), exit(exit_s));
 }

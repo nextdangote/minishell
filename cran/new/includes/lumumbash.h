@@ -37,9 +37,9 @@ typedef enum e_ast_direction
 
 // builtins
 int	ft_echo(char **args);
-void ft_exit(char **args);
-int	ft_pwd(void);
-
+// void ft_exit(char **args);
+void ft_exit(char **args, t_minishell *minishell);
+int ft_pwd(void);
 
 // cleaners
 void	ft_lstclear(t_list **lst, void (*del)(void *));
@@ -65,10 +65,14 @@ int exec_child(t_node *node);
 
 //exec.c
 int	get_exit_status(int status);
+// static void exec_pipe_child(t_node *node, int pfds[2], t_ast_direction direction, t_minishell *minishell);
+// static int exec_pipeline(t_node *tree, t_minishell *minishell);
+
 // static void exec_pipe_child(t_node *node, int pfds[2], t_ast_direction direction);
 // static	int	exec_pipeline(t_node *tree);
-int	exec_node(t_node *tree, bool piped);
 
+// int	exec_node(t_node *tree, bool piped);
+int exec_node(t_node *tree, bool piped, t_minishell *minishell);
 
 // exec_utils.c
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -78,10 +82,11 @@ int	check_redir(t_node *node);
 
 // exec_simple.c
 void	reset_stds(bool piped);
-int	exec_builtin(char **args);
-bool	is_builtin(char *arg);
-int	exec_simple_cmd(t_node *node, bool piped);
-
+// int	exec_builtin(char **args);
+int exec_builtin(char **args, t_minishell *minishell);
+bool is_builtin(char *arg);
+// int	exec_simple_cmd(t_node *node, bool piped);
+int exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell);
 
 // errors.c
 int	error_msg(t_error error);
