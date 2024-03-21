@@ -1,11 +1,11 @@
 #include "lumumbash.h"
 
-int	ft_isdigit(int c)
-{
-	if ((c >= '0' && c <= '9'))
-		return (1);
-	return (0);
-}
+// int	ft_isdigit(int c)
+// {
+// 	if ((c >= '0' && c <= '9'))
+// 		return (1);
+// 	return (0);
+// }
 
 static bool	ft_isnumber(char *s)
 {
@@ -75,10 +75,12 @@ void	ft_exit(char **args, t_minishell *minishell)
 		{
 			exit_s = error_msg(
 					(t_error){GENERAL, TOO_MANY_ARGS, NULL});
-			(clean_shell(minishell), exit(exit_s));
+			clean_shell(minishell);
+			exit(exit_s);
 		}
 		else
 			exit_s = ft_exittoi(args[1], minishell);
 	}
-	(clean_shell(minishell), exit(exit_s));
+	clean_shell(minishell);
+	exit(exit_s);
 }

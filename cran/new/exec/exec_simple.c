@@ -48,32 +48,53 @@ void	reset_stds(bool piped)
 
 
 // added minishell as argument on march 22, to fit the new ft_exit
-int exec_builtin(char **args, t_minishell *minishell)
+
+// int exec_builtin(char **args, t_minishell *minishell)
+// {
+//     printf("exec_builtin: Executing command - %s\n", args[0]);
+//     if (!strcmp(args[0], "echo"))
+//     {
+//         printf("exec_builtin: Echo logic\n");
+//         return ft_echo(args + 1);
+//     }
+//     else if (!strcmp(args[0], "exit"))
+//     {
+//         ft_exit(args, minishell);
+//          return (GENERAL);
+//         // printf("exec_builtin: Exit logic\n");
+//         // return ft_exit(args + 1);  
+//     }
+//     else if (!strcmp(args[0], "pwd"))
+//     {
+//         return (ft_pwd());
+//         // printf("exec_builtin: PWD logic\n");
+//         // return ft_pwd(args + 1);  
+//     }
+//     else
+//     {
+//         printf("exec_builtin: Command not recognized\n");
+//         return GENERAL;
+//     }
+// }
+
+
+int	exec_builtin(char **args, t_minishell *minishell)
 {
     printf("exec_builtin: Executing command - %s\n", args[0]);
-    if (!strcmp(args[0], "echo"))
-    {
-        printf("exec_builtin: Echo logic\n");
-        return ft_echo(args + 1);
-    }
-    else if (!strcmp(args[0], "exit"))
-    {
-        ft_exit(args, minishell);
-         return (GENERAL);
-        // printf("exec_builtin: Exit logic\n");
-        // return ft_exit(args + 1);  
-    }
-    else if (!strcmp(args[0], "pwd"))
-    {
-        return (ft_pwd());
-        // printf("exec_builtin: PWD logic\n");
-        // return ft_pwd(args + 1);  
-    }
-    else
-    {
-        printf("exec_builtin: Command not recognized\n");
-        return GENERAL;
-    }
+	if (!ft_strcmp(args[0], "echo"))
+		return (ft_echo(args + 1));
+	// if (!ft_strcmp(args[0], "cd"))
+	// 	return (ft_cd(args[1]));
+	if (!ft_strcmp(args[0], "env"))
+		return (ft_env(minishell));
+	if (!ft_strcmp(args[0], "pwd"))
+		return (ft_pwd());
+	if (!ft_strcmp(args[0], "export"))
+		return (ft_export(args, minishell));
+	if (!ft_strcmp(args[0], "unset"))
+		return (ft_unset(args, minishell));
+	ft_exit(args, minishell);
+	return (GENERAL);
 }
 
 
@@ -87,7 +108,7 @@ bool is_builtin(char *arg)
 	}
     printf("is_builtin: Checking command - %s\n", arg);
 
-    if (!strcmp(arg, "echo") || !strcmp(arg, "exit") || !strcmp(arg, "pwd"))
+    if (!strcmp(arg, "echo") || !strcmp(arg, "exit") || !strcmp(arg, "pwd") || !strcmp(arg, "export") || !strcmp(arg, "unset") || !strcmp(arg, "env") || !strcmp(arg, "cd"))
 	{
 		printf("is_builtin: Detected as builtin command\n");
         return true;

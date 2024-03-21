@@ -55,6 +55,14 @@ typedef struct s_parse_error
 	char				*str;
 }	t_parse_error;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+
 typedef struct s_minishell
 {
 	char			*line;
@@ -67,6 +75,7 @@ typedef struct s_minishell
 	int				stdout;
 	struct termios	original_term;
 	char			**environ;
+	t_env			*envlst;
 	bool			heredoc_sigint;
 }					t_minishell;
 

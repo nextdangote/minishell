@@ -6,10 +6,13 @@ CFLAGS		:= -Wall -Werror -Wextra
 
 BUILTINS	:=	builtins/echo.c \
 				builtins/exit.c \
-				builtins/pwd.c 
+				builtins/pwd.c \
+				builtins/env.c \
+				builtins/export.c \
+				builtins/unset.c \
 
 CLEANERS	:=	cleaners/clean.c \
-				cleaners/free.c
+				cleaners/free.c \
 
 EXEC		:=	exec/checks.c \
 				exec/errors.c \
@@ -20,11 +23,14 @@ EXEC		:=	exec/checks.c \
 				exec/pipes_exec.c \
 				exec/tree.c \
 
+HELP		:=  help/ft_helpers.c \
+				help/ft_exphelp.c \
+
 PARSER		:=	parser/nodes.c \
 				parser/parser_errors.c \
 				parser/parser_helpers.c \
 				parser/parser_utils.c \
-				parser/parser.c
+				parser/parser.c \
 
 TOKENIZER	:=	tokenizer/tokenizer.c \
 				tokenizer/handlers.c \
@@ -32,6 +38,7 @@ TOKENIZER	:=	tokenizer/tokenizer.c \
 				tokenizer/tokens_utils.c \
 
 SRCS		:=	$(BUILTINS)\
+				$(HELP)\
 				$(CLEANERS)\
 				$(EXEC)\
 				$(PARSER)\

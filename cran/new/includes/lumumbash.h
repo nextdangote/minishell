@@ -2,6 +2,7 @@
 # define LUMUMBASH_H
 
 # include <stdio.h>
+#include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
@@ -26,6 +27,7 @@
 
 
 
+
 typedef enum e_ast_direction
 {
 	TD_LEFT,
@@ -40,6 +42,51 @@ int	ft_echo(char **args);
 // void ft_exit(char **args);
 void ft_exit(char **args, t_minishell *minishell);
 int ft_pwd(void);
+//
+// void ft_init_envlst(void);
+// int ft_env(void);
+void ft_init_envlst(t_minishell *minishell);
+int ft_env(t_minishell *minishell);
+//
+
+int ft_unset(char **args, t_minishell *minishell);
+//
+// void ft_update_envlst(char *key, char *value, bool create);
+void ft_update_envlst(char *key, char *value, bool create, t_minishell *minishell);
+// int ft_export(char **argv);
+int ft_export(char **argv, t_minishell *minishell);
+
+//
+
+
+
+//help
+size_t ft_strlen(const char *str);
+int ft_strncmp(const char *s1, const char *s2, size_t n);
+int ft_strcmp(const char *s1, const char *s2);
+// void ft_putchar_fd(char c, int fd);
+// void ft_putstr_fd(char *s, int fd);
+int ft_isalpha(int c);
+int ft_isdigit(int c);
+int ft_alphanum(int c);
+
+void *ft_memset(void *b, int c, size_t len);
+void *ft_calloc(size_t count, size_t size);
+void *ft_memcpy(void *dst, const void *src, size_t n);
+char *ft_strdup(const char *s1);
+
+
+// char *ft_substr(char const *s, unsigned int start, size_t len);
+char *ft_extract_key(char *str);
+// bool ft_env_entry_exists(char *key);
+bool ft_env_entry_exists(char *key, t_minishell *minishell);
+
+int ft_keycheck(char *str);
+// void ft_envlst_back(t_env *new);
+void ft_envlst_back(t_env *new, t_minishell *minishell);
+
+char *ft_extract_value(char *str);
+
 
 // cleaners
 void	ft_lstclear(t_list **lst, void (*del)(void *));
