@@ -9,7 +9,7 @@ BUILTINS	:=	builtins/echo.c \
 				builtins/pwd.c 
 
 CLEANERS	:=	cleaners/clean.c \
-				cleaners/free.c
+				cleaners/free.c \
 
 EXEC		:=	exec/checks.c \
 				exec/errors.c \
@@ -31,11 +31,23 @@ TOKENIZER	:=	tokenizer/tokenizer.c \
 				tokenizer/tokens_list.c \
 				tokenizer/tokens_utils.c \
 
+EXPANDER	:=	expander/expander.c \
+				expander/create_env_lists.c \
+				expander/ft_frees.c \
+				expander/new_ft_split.c \
+				expander/tester_functions.c \
+				expander/ft_split_double.c \
+				expander/ft_split_bis.c \
+				expander/expander_utils.c \
+				expander/expand_assemble.c \
+				expander/remove_wrong_env_var.c \
+
 SRCS		:=	$(BUILTINS)\
 				$(CLEANERS)\
 				$(EXEC)\
 				$(PARSER)\
 				$(TOKENIZER)\
+				$(EXPANDER)\
 				main.c
 
 OBJS		:=	$(SRCS:.c=.o)

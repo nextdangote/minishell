@@ -17,7 +17,9 @@
 # include <string.h>
 #include <ctype.h>
 # include "tokenizer.h"
+# include "expander.h"
 # include "parser.h"
+
 
 #define MAX_NUM_ARGS 100
 
@@ -91,6 +93,10 @@ int	error_msg(t_error error);
 t_error	ft_check_exec(char *file, bool cmd);
 t_error	ft_check_read(char *file);
 t_error	ft_check_write(char *file);
+
+// expander.c
+t_token *expander(t_token *tokenized_tokens, char **env);
+//char	**ft_split(char const *s, char c);
 
 
 // exec_redir.c

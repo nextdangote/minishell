@@ -1,5 +1,5 @@
 #include "lumumbash.h"
-
+#include "expander.h"
 
 static void	ft_init_minishell(t_minishell *minishell, char **env)
 {    
@@ -23,6 +23,7 @@ int	main(int argc, char **argv, char **env)
 {
 	((void)argc, (void)argv);
     t_minishell minishell;
+	t_token		*new_tokens;
 
 	ft_init_minishell(&minishell, env);
 	while (1)
@@ -37,6 +38,8 @@ int	main(int argc, char **argv, char **env)
 		line);
 		if (!minishell.tokens)
 			continue ;
+		new_tokens = minishell.tokens;
+		minishell.tokens = expander(new_tokens, minishell.environ);
 		minishell.ast = ft_parse(&minishell);
 		if (minishell.parse_error.type)
 		{
